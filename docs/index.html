@@ -73,9 +73,245 @@ $ npm --version
 
       </google-codelab-step>
     
-      <google-codelab-step label="Where to find the Workshop" duration="0">
-        <p>Before you can review the work submitted by applicants, you should familiarise yourself with the syllabus.</p>
-<p>The syllabus for ITD is here: <a href="https://cyf-itd.netlify.app/" target="_blank">https://cyf-itd.netlify.app/</a>. This is a screenshot of the syllabus home page:<br></p>
+      <google-codelab-step label="Where to find the workshop" duration="0">
+        <p>The workshop instructions can be found here: <a href="https://beaumoaj.github.io/jestWorkshop/#0" target="_blank">https://beaumoaj.github.io/jestWorkshop/#0</a></p>
+<p>You should <code>fork</code> and then <code>clone</code> the workshop repository which you will find here: <a href="https://github.com/beaumoaj/jestWorkshop" target="_blank">https://github.com/beaumoaj/jestWorkshop</a>.  Note this repository is currently private, I will make it public at the start of the workshop for you to fork it.</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Exploring the workshop project" duration="0">
+        <p>Once you have forked the repository and cloned a copy to your computer, open the folder in VS Code.  It should look like this:<br></p>
+<p class="image-container"><img alt="Project Open In VS Code" src="img/67453563068dff57.png"></p>
+<p>This project contains the following files:</p>
+<ul>
+<li><code>day.js</code> which provides the functionality to store appointments during a given day.</li>
+<li><code>dayDemo.js</code> contains brief demo of how to use the existing code in <code>day.js</code>.</li>
+<li><code>day.test.js</code> contains the beginnings of a set of unit tests for <code>day.js</code>.</li>
+</ul>
+<h2 is-upgraded>Running the code</h2>
+<ol type="1">
+<li>Open the <code>package.json</code> first and look at the <code>dependencies</code> (you will see <code>jest</code>) and look at the <code>scripts</code> - you will see <code>demo</code> and <code>test</code>.  The <code>scripts</code> definitions allow you to run the following in a terminal:<pre>npm run demo
+</pre>
+which will run the demonstration code.  Also:<pre>npm run test
+</pre>
+will run the unit tests.</li>
+<li>Open the file called <code>dayTest.js</code>.  It constains the following code:<pre><code language="language-javascript" class="language-javascript">const {
+  setUpDay,
+  makeAppointment,
+  getAppointment,
+  getLengthOfDay,
+  getFirstAppointmentTime,
+  getLastAppointmentTime,
+  printAppointments,
+} = require(&#34;./day&#34;);
+
+// The following is just a demo of how to use the functions.
+// Remember to call setUpDay() before making any appointments.
+// If you want to debug a test, you can change the code below to copy the test code.
+console.log(&#34;Day Demo.  Setting up an empty day.&#34;);
+setUpDay();
+printAppointments();
+console.log(&#34;Making an appointment for John at 11am.&#34;);
+makeAppointment(11, &#34;John&#34;, 1);
+printAppointments();
+</code></pre>
+At the top of the file we import the required functionality from <code>day.js</code>  These are the functions you are allowed to call.  Then we:<ul>
+<li>call <code>setUpDay</code> to initialise an empty appointment array,</li>
+<li>print the appointments from the empty day</li>
+<li>make a one hour appointment for John at 11</li>
+<li>print the list of appointments again.  This time we should see the new appointment at 11.</li>
+</ul>
+</li>
+<li>Open a terminal window in the folder and enter:<pre>npm run demo
+</pre>
+You should see the following output:<pre>$ npm run demo
+
+&gt; jest@1.0.0 demo
+&gt; node dayDemo.js
+
+Day Demo.  Setting up an empty day.
+Appointments for the day:
+Time: 9, Name: available, Length: 0
+Time: 10, Name: available, Length: 0
+Time: 11, Name: available, Length: 0
+Time: 12, Name: available, Length: 0
+Time: 13, Name: available, Length: 0
+Time: 14, Name: available, Length: 0
+Time: 15, Name: available, Length: 0
+Time: 16, Name: available, Length: 0
+Time: 17, Name: available, Length: 0
+Making an appointment for John at 11am.
+Appointments for the day:
+Time: 9, Name: available, Length: 0
+Time: 10, Name: available, Length: 0
+Time: 11, Name: John, Length: 1
+Time: 12, Name: available, Length: 0
+Time: 13, Name: available, Length: 0
+Time: 14, Name: available, Length: 0
+Time: 15, Name: available, Length: 0
+Time: 16, Name: available, Length: 0
+Time: 17, Name: available, Length: 0
+</pre>
+Check the output is what you expected given the code in <code>dayDemo.js</code>.</li>
+</ol>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="What does 
+makeAppointment currently do?" duration="0">
+        <p>Imagine that you have been asked to implement the function called <code>makeAppointment</code>.  The starting code for this function can be found near the bottom of <code>day.sj</code> is the current implementation is:</p>
+<pre><code language="language-javascript" class="language-javascript">// Make an appointment at a specific time.
+// THIS IS THE ONLY FUNCTION THAT YOU CAN CHANGE
+function makeAppointment(time, person, length) {
+  updateIndex(time, person, length);
+  return true;
+}
+</code></pre>
+<p>Don&#39;t change any code yet but open <code>day.js</code> and find the <code>makeAppointment</code> function.  Also find the function called <code>updateIndex</code> which is the function that changes the contents of the array containing all of the appointments in the day.</p>
+<aside class="special"><p>Note that we saw that for an empty appointment slot, the name was <code>available</code> and the length was <code>0</code>.  To set up an empty day, we initialise every index in the array to the following value:</p>
+<pre><code language="language-javascript" class="language-javascript">{ name: &#34;available&#34;, length: 0 }
+</code></pre>
+<p>Once an appointment is made, the <code>name</code> property should contain the name of the person the appoinment is with.  The <code>length</code> property should contain the length of the appointment.</p>
+</aside>
+<p>If you were to debug the code with a break point at the end of <code>makeAppointment</code> you will see the following:</p>
+<p class="image-container"><img alt="Debugging the makeAppointment function" src="img/2ac9cc8ff0ea544d.png"></p>
+<p>Appointments made for 9am are stored in index 0, appointments for 10am are stored in index 1, appointments for 11am are stored in index 2.</p>
+<p>Note that after we run the <code>dayDemo</code> and set an appointment for John at 11, <strong>index 2</strong> of the appointments array has been changed to:</p>
+<pre><code language="language-javascript" class="language-javascript">{ name: &#34;John&#34;, length: 1 }
+</code></pre>
+<p>You can also see the values of the parameters <code>length</code>, <code>person</code> and <code>time</code> in the debugger.</p>
+<p>The code for <code>makeAppointment</code> is only the starting point for the function.  Before we can change anything, we need to know the specification for that function.</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="The specification for 
+makeAppointment" duration="0">
+        <p>Here is the specification (ie the rules) for the <code>makeAppointment</code> function that we are going to write.</p>
+<ul>
+<li>The <code>makeAppointment</code> function will <code>return true</code> when the appointment was made successfully and <code>return false</code> when the appointment could not be made.  There should be no exceptions generated.</li>
+<li>The earliest time an appointment can be made is 9 (meaning 9:00).</li>
+<li>The latest time an appointment can be made is 17 (meaning 17:00).</li>
+<li>The length of an appountment will be provided in hours.  A value of 1 means a one hour appointment, a value of 2 means a two hour appointment, and so on.</li>
+<li>An appointment can only be successfully booked if <strong>all</strong> the time slots it will take up represent a valid time and contain <code>{ name: "available", ...}</code>.  The value of <code>length</code> is not relevant when the value of <code>name</code> is <code>available</code>. For example, if we wanted to make a 3 hour appointment for John, starting at 11, the result of printing the day should look like this: <pre>Making a three hour appointment for John at 11am.
+Appointments for the day:
+Time: 9, Name: available, Length: 0
+Time: 10, Name: available, Length: 0
+Time: 11, Name: John, Length: 3
+Time: 12, Name: John, Length: 3
+Time: 13, Name: John, Length: 3
+Time: 14, Name: available, Length: 0
+Time: 15, Name: available, Length: 0
+Time: 16, Name: available, Length: 0
+Time: 17, Name: available, Length: 0
+</pre>
+<pre><code></code></pre>
+</li>
+<li>No appointments may continue after 18:00, so you can only set a one hour appointment to start at 17:00.</li>
+</ul>
+<ol type="1">
+<li>Take some time to look at these rules.</li>
+<li>Write down <strong>five</strong> different scenarios for making an appointment that should <code>return true</code> (ie they are allowed)</li>
+<li>Write down <strong>five</strong> different scenarios for making an appointment that should <code>return false</code> (ie they should not be allowed).</li>
+</ol>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Test Driven Development" duration="0">
+        <p>The philosophy behind Test Driven Development (aka TDD) is that we should write a test first to check the functionality that we are about to write.  We run the test and see that it fails.  Then we implement the functionality and re-run the test and hopefully see that it passes.</p>
+<ol type="1">
+<li>Open the file called <code>day.test.js</code> and have a look at the existing tests.  There are three of them.  Read the tests and try to understand what they do (<strong>do not run the tests</strong> yet).</li>
+<li>Do you understand what each of the three tests are testing for?  If not ask a question.</li>
+</ol>
+<p>A good test should should have <strong>three parts</strong>:</p>
+<ol type="1">
+<li>Set everything up ready for the test</li>
+<li>Perform the action we are testing</li>
+<li>Check the results of the action to see that everything we <code>expect</code> to have happened has indeed happened.</li>
+</ol>
+<h2 is-upgraded>Example: testing that <code>setUpDay</code> works correctly</h2>
+<p>Here is the code to test <code>setUpDay</code>:</p>
+<pre><code language="language-javascript" class="language-javascript">// test that all the appointments on an empty day are available
+test(&#34;empty day&#34;, () =&gt; {
+  // nothing to set up
+  // perform the action we are testing
+  setUpDay();
+  // check the results are as we expected
+  const start = getFirstAppointmentTime();
+  const length = getLengthOfDay();
+  for (let time = start; time &lt; length; time++) {
+    expect(getAppointment(time).name).toBe(&#34;available&#34;);
+  }
+});
+</code></pre>
+<p>Here there is nothing to set up.  The <strong>action</strong> is that we call the function <code>setUpDay</code>.  Checking requires we look at the array to see that <code>name</code> property has the value <code>available</code> for each hour of the day.</p>
+<h2 is-upgraded>Example: testing we can make an appointment at 9:00</h2>
+<p>Here is the test to make an appointment at the start of the day (at 9:00).</p>
+<pre><code language="language-javascript" class="language-javascript">// test that we can make an appointment at the start of an empty day
+test(&#34;Make Appointment at start of day&#34;, () =&gt; {
+  // set up everything ready for the test
+  setUpDay();
+  const time = getFirstAppointmentTime();
+  // perform the action
+  const result = makeAppointment(time, &#34;John&#34;, 1);
+  // check the results are as expected
+  expect(result).toBe(true);
+  expect(getAppointment(time).name).toBe(&#34;John&#34;);
+  expect(getAppointment(time).length).toBe(1);
+});
+</code></pre>
+<p>Here there are two things to set up, first we need to call <code>setUpDay</code> to ensure the day&#39;s appointments are all available, and then we find the time of the first appointment of the day.  Next we perform the action which is to make the appointment and get the returned <code>result</code>.  Finally we check that the returned result was <code>true</code>, the name associated with the assigned appointment is <code>John</code> and the length associated with the assigned appointment is <code>1</code>.</p>
+<h2 is-upgraded>Running the tests</h2>
+<ol type="1">
+<li>Run the tests by typing the following into the terminal window: <pre>npm run test
+</pre>
+</li>
+<li>Which tests pass and which test fails?</li>
+<li>Identify the failed test, where is it failing and what is going wrong. (<strong>do not change any code at this time</strong>)</li>
+<li>Explain what is causing the test to fail.</li>
+</ol>
+<h2 is-upgraded>Discussion</h2>
+<p>At this point we will have a discussion to check everyone is following and understands the tests.</p>
+<h2 is-upgraded>Fixing the failed test</h2>
+<ol type="1">
+<li>Edit the code in <code>makeAppointment</code> to ensure that the method returns <code>false</code> as described in the specification.</li>
+<li>Rerun the tests and ensure that all tests pass.</li>
+</ol>
+<h2 is-upgraded>Writing more tests.</h2>
+<p>You should work in pairs to complete the following steps.  If you finish this step and have time to spare, repeat the steps and write tests for other scenarios.</p>
+<ol type="1">
+<li>Pick one of your five scenarios that should cause <code>makeAppointment</code> to return <code>true</code> and write a test to ensure that everything is needs to do has been done correctly.</li>
+<li>Run the test and see it fail</li>
+<li>Write the code to implement your scenario</li>
+<li>Rerun the tests and ensure it passes <strong>before</strong> you continue</li>
+<li>Pick one of your five scenarios that should cause <code>makeAppointment</code> to return <code>false</code> and write a test to ensure that nothing has changed in the appointment diary and that the returned value is <code>false</code>.</li>
+<li>Run the test and see it fail</li>
+<li>Write the code to implement your scenario</li>
+<li>Rerun the tests and ensure it passes <strong>before</strong> you continue</li>
+</ol>
+<aside class="special"><p> Note that it is possible that the test passes without having to write any new code.  This just means that the existing functionality includes the scenario you just wrote a test for.  Pick another scenario and write a test for it.</p>
+</aside>
+<aside class="special"><p> Remember that every good test should should have <strong>three parts</strong>:</p>
+<ol type="1">
+<li>Set everything up ready for the test</li>
+<li>Perform the action we are testing</li>
+<li>Check the results of the action to see that everything we <code>expect</code> to have happened has indeed happened.</li>
+</ol>
+</aside>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Summary" duration="0">
+        <ul>
+<li>We engaged in TDD and wrote tests <strong>before</strong> writing the required functionality</li>
+<li>We looked at some existing tests and how they worked</li>
+<li>We looked at fixing the implementation to make a failed test pass.</li>
+<li>We discovered that we may need to write a lot of tests to cover all possible scenarios.</li>
+</ul>
 
 
       </google-codelab-step>

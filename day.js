@@ -1,3 +1,4 @@
+// The appointments for the day.
 const appointments = [];
 // The hour of the first appointment of the day.
 const START_OF_DAY = 9;
@@ -14,29 +15,34 @@ function setUpDay() {
   }
 }
 
-// DO NOT CHANGE ANYTHING IN THIS FUNCTION
+// insert an appointment at a specific time
 function updateIndex(time, person, length) {
   const index = time - START_OF_DAY;
   appointments[index].name = person;
   appointments[index].length = length;
 }
 
+// Get the appointment at a specific time.
 function getAppointment(time) {
   return appointments[time - START_OF_DAY];
 }
 
+// Get the time of the first appointment in the day.
 function getFirstAppointmentTime() {
   return START_OF_DAY;
 }
 
+// Get the time of the last appointment in the day.
 function getLastAppointmentTime() {
   return FINAL_APPOINTMENT_TIME;
 }
 
+// Get the number of appointment slots in the day.
 function getLengthOfDay() {
   return MAX_APPOINTMENTS_PER_DAY;
 }
 
+// Print out the appointments for the day.
 function printAppointments() {
   console.log("Appointments for the day:");
   for (let i = START_OF_DAY; i <= FINAL_APPOINTMENT_TIME; i++) {
