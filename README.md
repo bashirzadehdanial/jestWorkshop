@@ -161,7 +161,7 @@ This project contains the following files:
 
 ## What does `makeAppointment` currently do?
 
-Imagine that you have been asked to implement the function called `makeAppointment`.  The starting code for this function can be found near the bottom of `day.sj` is the current implementation is:
+Imagine that you have been asked to implement the function called `makeAppointment`.  The starting code for this function can be found near the bottom of `day.js` is the current implementation is:
 
 ```javascript
 // Make an appointment at a specific time.
