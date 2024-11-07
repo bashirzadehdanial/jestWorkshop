@@ -65,9 +65,8 @@ The following pages will take you through all the steps of the workshop.
 
 ## Where to find the workshop
 
-The workshop instructions can be found here: [https://beaumoaj.github.io/jestWorkshop/#0](https://beaumoaj.github.io/jestWorkshop/#0)
-
-You should `fork` and then `clone` the workshop repository which you will find here: [https://github.com/beaumoaj/jestWorkshop](https://github.com/beaumoaj/jestWorkshop).  Note this repository is currently private, I will make it public at the start of the workshop for you to fork it.
+1.  Open the workshop instructions which can be found here: [https://beaumoaj.github.io/jestWorkshop/#0](https://beaumoaj.github.io/jestWorkshop/#0)
+1.  You should `fork` and then `clone` the workshop repository which you will find here: [https://github.com/beaumoaj/jestWorkshop](https://github.com/beaumoaj/jestWorkshop).  Note this repository is currently private, I will make it public at the start of the workshop for you to fork it.
 
 ## Exploring the workshop project
 
@@ -83,15 +82,7 @@ This project contains the following files:
 
 ### Running the code
 
-1.  Open the `package.json` first and look at the `dependencies` (you will see `jest`) and look at the `scripts` - you will see `demo` and `test`.  The `scripts` definitions allow you to run the following in a terminal:
-	```console
-	npm run demo
-	```
-	which will run the demonstration code.  Also: 
-	```console
-	npm run test
-	```
-	will run the unit tests.
+1.  Open the `package.json` first and look at the `dependencies` (you will see `jest`) and look at the `scripts` - you will see `demo` and `test`.  The `scripts` definitions allow you to run two actions, `demo` and `test` (don't run them yet).
 1.  Open the file called `dayTest.js`.  It constains the following code:
 	```javascript
 	const {
@@ -161,7 +152,7 @@ This project contains the following files:
 
 ## What does `makeAppointment` currently do?
 
-Imagine that you have been asked to implement the function called `makeAppointment`.  The starting code for this function can be found near the bottom of `day.js` is the current implementation is:
+Imagine that you have been asked to implement the function called `makeAppointment`.  The starting code for this function can be found near the bottom of `day.js` and it's current implementation is:
 
 ```javascript
 // Make an appointment at a specific time.
@@ -172,15 +163,14 @@ function makeAppointment(time, person, length) {
 }
 ```
 
-Don't change any code yet but open `day.js` and find the `makeAppointment` function.  Also find the function called `updateIndex` which is the function that changes the contents of the array containing all of the appointments in the day.
-
-> aside positive
-> 
-> Note that we saw that for an empty appointment slot, the name was `available` and the length was `0`.  To set up an empty day, we initialise every index in the array to the following value:
-> ```javascript
-> { name: "available", length: 0 }
-> ```
-> Once an appointment is made, the `name` property should contain the name of the person the appoinment is with.  The `length` property should contain the length of the appointment.
+1.  Don't change any code yet but open `day.js` and find the `makeAppointment` function.  Also find the function called `updateIndex` which is the function that changes the contents of the array containing all of the appointments in the day.
+	> aside positive
+	> 
+	> Note that we saw that for an empty appointment slot, the name was `available` and the length was `0`.  To set up an empty day, we initialise every index in the array to the following value:
+	> ```javascript
+	> { name: "available", length: 0 }
+	> ```
+	> Once an appointment is made, the `name` property should contain the name of the person the appoinment is with.  The `length` property should contain the length of the appointment.
 
 If you were to debug the code with a break point at the end of `makeAppointment` you will see the following:
 
@@ -198,7 +188,7 @@ The code for `makeAppointment` is only the starting point for the function.  Bef
 
 ## The specification for `makeAppointment`
 
-Here is the specification (ie the rules) for the `makeAppointment` function that we are going to write.
+Here is the **specification** (ie **the rules**) for the `makeAppointment` function.  The specification tells us how the function should work.
 
 * The `makeAppointment` function will `return true` when the appointment was made successfully and `return false` when the appointment could not be made.  There should be no exceptions generated.
 * The earliest time an appointment can be made is 9 (meaning 9:00).
@@ -233,9 +223,9 @@ The philosophy behind Test Driven Development (aka TDD) is that we should write 
 2.  Do you understand what each of the three tests are testing for?  If not ask a question.
 
 A good test should should have **three parts**:
-1.  Set everything up ready for the test
-1.  Perform the action we are testing
-1.  Check the results of the action to see that everything we `expect` to have happened has indeed happened.
+*  **First:** Set everything up ready for the test
+*  **Second:** Perform the action we are testing
+*  **Third:** Check the results of the action to see that everything we `expect` to have happened has indeed happened.
 
 ### Example: testing that `setUpDay` works correctly
 
@@ -288,18 +278,18 @@ Here there are two things to set up, first we need to call `setUpDay` to ensure 
 
 ### Discussion
 
-At this point we will have a discussion to check everyone is following and understands the tests.
+1.  At this point we will have a discussion to check everyone is following and understands the tests.
 
 ### Fixing the failed test
 
-1.  Edit the code in `makeAppointment` to ensure that the method returns `false` as described in the specification.
+1.  Edit the code in `makeAppointment` to ensure that the method returns `false` as described in the specification.  **Do not modify any existing function except for `makeAppointment`**.
 1.  Rerun the tests and ensure that all tests pass.
 
-### Writing more tests.
+## Write some more tests.
 
 You should work in pairs to complete the following steps.  If you finish this step and have time to spare, repeat the steps and write tests for other scenarios.
 
-1.  Pick one of your five scenarios that should cause `makeAppointment` to return `true` and write a test to ensure that everything is needs to do has been done correctly.
+1.  Pick one of your five scenarios that should cause `makeAppointment` to return `true` and write a test to ensure that everything it needs to do has been done correctly.
 1.  Run the test and see it fail
 1.  Write the code to implement your scenario
 1.  Rerun the tests and ensure it passes **before** you continue
@@ -313,9 +303,9 @@ You should work in pairs to complete the following steps.  If you finish this st
 
 > aside positive
 > Remember that every good test should should have **three parts**:
-> 1.  Set everything up ready for the test
-> 1.  Perform the action we are testing
-> 1.  Check the results of the action to see that everything we `expect` to have happened has indeed happened.
+> *  **First:** Set everything up ready for the test
+> *  **Second:** Perform the action we are testing
+> *  **Third:** Check the results of the action to see that everything we `expect` to have happened has indeed happened.
 
 
 ## Summary

@@ -74,8 +74,10 @@ $ npm --version
       </google-codelab-step>
     
       <google-codelab-step label="Where to find the workshop" duration="0">
-        <p>The workshop instructions can be found here: <a href="https://beaumoaj.github.io/jestWorkshop/#0" target="_blank">https://beaumoaj.github.io/jestWorkshop/#0</a></p>
-<p>You should <code>fork</code> and then <code>clone</code> the workshop repository which you will find here: <a href="https://github.com/beaumoaj/jestWorkshop" target="_blank">https://github.com/beaumoaj/jestWorkshop</a>.  Note this repository is currently private, I will make it public at the start of the workshop for you to fork it.</p>
+        <ol type="1">
+<li>Open the workshop instructions which can be found here: <a href="https://beaumoaj.github.io/jestWorkshop/#0" target="_blank">https://beaumoaj.github.io/jestWorkshop/#0</a></li>
+<li>You should <code>fork</code> and then <code>clone</code> the workshop repository which you will find here: <a href="https://github.com/beaumoaj/jestWorkshop" target="_blank">https://github.com/beaumoaj/jestWorkshop</a>.  Note this repository is currently private, I will make it public at the start of the workshop for you to fork it.</li>
+</ol>
 
 
       </google-codelab-step>
@@ -91,11 +93,7 @@ $ npm --version
 </ul>
 <h2 is-upgraded>Running the code</h2>
 <ol type="1">
-<li>Open the <code>package.json</code> first and look at the <code>dependencies</code> (you will see <code>jest</code>) and look at the <code>scripts</code> - you will see <code>demo</code> and <code>test</code>.  The <code>scripts</code> definitions allow you to run the following in a terminal:<pre>npm run demo
-</pre>
-which will run the demonstration code.  Also:<pre>npm run test
-</pre>
-will run the unit tests.</li>
+<li>Open the <code>package.json</code> first and look at the <code>dependencies</code> (you will see <code>jest</code>) and look at the <code>scripts</code> - you will see <code>demo</code> and <code>test</code>.  The <code>scripts</code> definitions allow you to run two actions, <code>demo</code> and <code>test</code> (don&#39;t run them yet).</li>
 <li>Open the file called <code>dayTest.js</code>.  It constains the following code:<pre><code language="language-javascript" class="language-javascript">const {
   setUpDay,
   makeAppointment,
@@ -161,7 +159,7 @@ Check the output is what you expected given the code in <code>dayDemo.js</code>.
     
       <google-codelab-step label="What does 
 makeAppointment currently do?" duration="0">
-        <p>Imagine that you have been asked to implement the function called <code>makeAppointment</code>.  The starting code for this function can be found near the bottom of <code>day.js</code> is the current implementation is:</p>
+        <p>Imagine that you have been asked to implement the function called <code>makeAppointment</code>.  The starting code for this function can be found near the bottom of <code>day.js</code> and it&#39;s current implementation is:</p>
 <pre><code language="language-javascript" class="language-javascript">// Make an appointment at a specific time.
 // THIS IS THE ONLY FUNCTION THAT YOU CAN CHANGE
 function makeAppointment(time, person, length) {
@@ -169,12 +167,14 @@ function makeAppointment(time, person, length) {
   return true;
 }
 </code></pre>
-<p>Don&#39;t change any code yet but open <code>day.js</code> and find the <code>makeAppointment</code> function.  Also find the function called <code>updateIndex</code> which is the function that changes the contents of the array containing all of the appointments in the day.</p>
-<aside class="special"><p>Note that we saw that for an empty appointment slot, the name was <code>available</code> and the length was <code>0</code>.  To set up an empty day, we initialise every index in the array to the following value:</p>
+<ol type="1">
+<li>Don&#39;t change any code yet but open <code>day.js</code> and find the <code>makeAppointment</code> function.  Also find the function called <code>updateIndex</code> which is the function that changes the contents of the array containing all of the appointments in the day. <aside class="special"><p>Note that we saw that for an empty appointment slot, the name was <code>available</code> and the length was <code>0</code>.  To set up an empty day, we initialise every index in the array to the following value:</p>
 <pre><code language="language-javascript" class="language-javascript">{ name: &#34;available&#34;, length: 0 }
 </code></pre>
 <p>Once an appointment is made, the <code>name</code> property should contain the name of the person the appoinment is with.  The <code>length</code> property should contain the length of the appointment.</p>
 </aside>
+</li>
+</ol>
 <p>If you were to debug the code with a break point at the end of <code>makeAppointment</code> you will see the following:</p>
 <p class="image-container"><img alt="Debugging the makeAppointment function" src="img/2ac9cc8ff0ea544d.png"></p>
 <p>Appointments made for 9am are stored in index 0, appointments for 10am are stored in index 1, appointments for 11am are stored in index 2.</p>
@@ -189,7 +189,7 @@ function makeAppointment(time, person, length) {
     
       <google-codelab-step label="The specification for 
 makeAppointment" duration="0">
-        <p>Here is the specification (ie the rules) for the <code>makeAppointment</code> function that we are going to write.</p>
+        <p>Here is the <strong>specification</strong> (ie <strong>the rules</strong>) for the <code>makeAppointment</code> function.  The specification tells us how the function should work.</p>
 <ul>
 <li>The <code>makeAppointment</code> function will <code>return true</code> when the appointment was made successfully and <code>return false</code> when the appointment could not be made.  There should be no exceptions generated.</li>
 <li>The earliest time an appointment can be made is 9 (meaning 9:00).</li>
@@ -227,11 +227,11 @@ Time: 17, Name: available, Length: 0
 <li>Do you understand what each of the three tests are testing for?  If not ask a question.</li>
 </ol>
 <p>A good test should should have <strong>three parts</strong>:</p>
-<ol type="1">
-<li>Set everything up ready for the test</li>
-<li>Perform the action we are testing</li>
-<li>Check the results of the action to see that everything we <code>expect</code> to have happened has indeed happened.</li>
-</ol>
+<ul>
+<li><strong>First:</strong> Set everything up ready for the test</li>
+<li><strong>Second:</strong> Perform the action we are testing</li>
+<li><strong>Third:</strong> Check the results of the action to see that everything we <code>expect</code> to have happened has indeed happened.</li>
+</ul>
 <h2 is-upgraded>Example: testing that <code>setUpDay</code> works correctly</h2>
 <p>Here is the code to test <code>setUpDay</code>:</p>
 <pre><code language="language-javascript" class="language-javascript">// test that all the appointments on an empty day are available
@@ -274,16 +274,22 @@ test(&#34;Make Appointment at start of day&#34;, () =&gt; {
 <li>Explain what is causing the test to fail.</li>
 </ol>
 <h2 is-upgraded>Discussion</h2>
-<p>At this point we will have a discussion to check everyone is following and understands the tests.</p>
+<ol type="1">
+<li>At this point we will have a discussion to check everyone is following and understands the tests.</li>
+</ol>
 <h2 is-upgraded>Fixing the failed test</h2>
 <ol type="1">
-<li>Edit the code in <code>makeAppointment</code> to ensure that the method returns <code>false</code> as described in the specification.</li>
+<li>Edit the code in <code>makeAppointment</code> to ensure that the method returns <code>false</code> as described in the specification.  <strong>Do not modify any existing function except for </strong><strong><code>makeAppointment</code></strong>.</li>
 <li>Rerun the tests and ensure that all tests pass.</li>
 </ol>
-<h2 is-upgraded>Writing more tests.</h2>
-<p>You should work in pairs to complete the following steps.  If you finish this step and have time to spare, repeat the steps and write tests for other scenarios.</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Write some more tests." duration="0">
+        <p>You should work in pairs to complete the following steps.  If you finish this step and have time to spare, repeat the steps and write tests for other scenarios.</p>
 <ol type="1">
-<li>Pick one of your five scenarios that should cause <code>makeAppointment</code> to return <code>true</code> and write a test to ensure that everything is needs to do has been done correctly.</li>
+<li>Pick one of your five scenarios that should cause <code>makeAppointment</code> to return <code>true</code> and write a test to ensure that everything it needs to do has been done correctly.</li>
 <li>Run the test and see it fail</li>
 <li>Write the code to implement your scenario</li>
 <li>Rerun the tests and ensure it passes <strong>before</strong> you continue</li>
@@ -295,11 +301,11 @@ test(&#34;Make Appointment at start of day&#34;, () =&gt; {
 <aside class="special"><p> Note that it is possible that the test passes without having to write any new code.  This just means that the existing functionality includes the scenario you just wrote a test for.  Pick another scenario and write a test for it.</p>
 </aside>
 <aside class="special"><p> Remember that every good test should should have <strong>three parts</strong>:</p>
-<ol type="1">
-<li>Set everything up ready for the test</li>
-<li>Perform the action we are testing</li>
-<li>Check the results of the action to see that everything we <code>expect</code> to have happened has indeed happened.</li>
-</ol>
+<ul>
+<li><strong>First:</strong> Set everything up ready for the test</li>
+<li><strong>Second:</strong> Perform the action we are testing</li>
+<li><strong>Third:</strong> Check the results of the action to see that everything we <code>expect</code> to have happened has indeed happened.</li>
+</ul>
 </aside>
 
 
