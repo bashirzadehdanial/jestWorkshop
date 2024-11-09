@@ -5,7 +5,11 @@ const {
   getLengthOfDay,
   getFirstAppointmentTime,
   getLastAppointmentTime,
+  printAppointments
 } = require("./day");
+
+
+
 
 // test that all the appointments on an empty day are available
 test("empty day", () => {
@@ -25,6 +29,7 @@ test("Make Appointment at start of day", () => {
   // set up everything ready for the test
   setUpDay();
   const time = getFirstAppointmentTime();
+
   // perform the action
   const result = makeAppointment(time, "John", 1);
   // check the results are as expected
@@ -37,10 +42,29 @@ test("Make Appointment at start of day", () => {
 test("Make Appointment before the start of day", () => {
   // set up everything ready for the test
   setUpDay();
-  const time = getFirstAppointmentTime() - 1;
+  const time = getFirstAppointmentTime()-1;
+  
   // perform the action
   const result = makeAppointment(time, "John", 1);
   // check the results are as expected
   expect(result).toBe(false);
   expect(getAppointment(getFirstAppointmentTime()).name).toBe("available");
 });
+
+// test that we can make an appointment at the end of an empty day
+test("Make Appointment after the end of day", () => {
+  // set up everything ready for the test
+  setUpDay();
+  const time = getFirstAppointmentTime()+9;
+  
+  // perform the action
+  const result = makeAppointment(time, "John", 1);
+  // check the results are as expected
+  expect(result).toBe(false);
+  expect(getAppointment(getFirstAppointmentTime()).name).toBe("available");
+});
+
+
+
+
+
